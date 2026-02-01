@@ -29,8 +29,10 @@ export async function supabaseVerifyOTP({ email, token }: { email: string; token
         token,
         type: 'email'
     })
-
-    return { error, data };
+    if (error) {
+        throw new Error(error.message)
+    }
+    return data
 }
 
 export async function supabaseSignOut() {

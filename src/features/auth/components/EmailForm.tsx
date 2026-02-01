@@ -1,15 +1,19 @@
 import Field from '@/shared/ui/Field';
 import { Box, Button, Flex, Input } from '@chakra-ui/react';
-import { useEmailForm } from '../hooks/forms';
+import { type EmailFormSchema } from '../hooks/forms';
 import type { Steps } from '../@types';
 import useSubmitEmail from '../hooks/useSubmitEmail';
+import type { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 
 interface EmailFormProps {
     setStep: React.Dispatch<React.SetStateAction<Steps>>
+    register: UseFormRegister<EmailFormSchema>
+    handleSubmit: UseFormHandleSubmit<EmailFormSchema>
+    errors: FieldErrors<EmailFormSchema>
 }
 
-const EmailForm = ({ setStep }: EmailFormProps) => {
-    const { register, errors, handleSubmit } = useEmailForm();
+const EmailForm = ({ setStep, handleSubmit, register, errors }: EmailFormProps) => {
+
     const { submit, isPending } = useSubmitEmail(setStep);
 
     return (

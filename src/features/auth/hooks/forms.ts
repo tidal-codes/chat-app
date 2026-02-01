@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { getActiveOtpEmail } from '../utils/localStorageManager';
 
 export const emailSchema = z.object({
     email: z.email("invalid email"),
@@ -17,13 +18,18 @@ export type EmailFormSchema = z.infer<typeof emailSchema>
 export type OtpFormSchema = z.infer<typeof otpSchema>
 
 export function useEmailForm() {
-    const { register, handleSubmit, formState: { isLoading, errors } } = useForm<EmailFormSchema>({
+    const email = getActiveOtpEmail() as string;
+    const { register, handleSubmit, getValues, formState: { isLoading, errors } } = useForm<EmailFormSchema>({
+        defaultValues: {
+            email: email || ""
+        },
         resolver: zodResolver(emailSchema)
     })
 
     return {
         register,
         handleSubmit,
+        getValues,
         isLoading,
         errors
     }

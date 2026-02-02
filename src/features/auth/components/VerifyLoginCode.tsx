@@ -1,5 +1,5 @@
 import PinInput from "@/shared/ui/PinInput";
-import { Box, Flex, Link, Text } from "@chakra-ui/react";
+import { Flex, Link, Text } from "@chakra-ui/react";
 import type { Steps } from "../@types";
 import { clearActiveOtp } from "../utils/localStorageManager";
 import useHandleVerifyCode from "../hooks/useVerifyOtp";
@@ -11,40 +11,43 @@ interface VerifyLoginCodeProps {
 }
 
 const VerifyLoginCode = ({ email, setStep }: VerifyLoginCodeProps) => {
-    const { getVerificationStatus, getStringArray, setCode } = useHandleVerifyCode(email);
-    const status = getVerificationStatus();
+    const { status, setStatus, isDisable, getStringArray, setCode } = useHandleVerifyCode(email);
     useLoginEffect();
     return (
         <>
-            <Box>
-                <Text
-                    as="h2"
-                    fontSize="lg"
-                    fontWeight="bold"
-                >
-                    verification Code
+            <Flex flexDir="column">
+                <Flex gap="3" alignItems="center">
+                    <Text
+                        as="h2"
+                        fontSize="lg"
+                        fontWeight="bold"
+                    >
+                        {email}
+                    </Text>
+                    <Link
+                        fontSize="xs"
+                        color="brand.200"
+                        onClick={() => {
+                            clearActiveOtp();
+                            setStep("EMAIL");
+                        }}
+                    >
+                        edit your email
+                    </Link>
+                </Flex>
+                <Text fontSize="sm" color="fg.muted">
+                    please enter the code we have sent to your email. if you don't see it, check your spam folder
                 </Text>
-                <Text>
-                    {`we sent a code to ${email}`}
-                </Text>
-                <Text>
-                    enter it below to continue
-                </Text>
-            </Box>
-            <Flex alignItems="center" justifyContent="center">
+            </Flex>
+            <Flex alignItems="center" justifyContent="center" my="5">
                 <PinInput
                     pins={6}
                     value={getStringArray()}
                     onValueChange={(value) => setCode(value)}
+                    disabled={isDisable}
+                    status={status}
+                    setStatus={setStatus}
                 />
-            </Flex>
-            <Flex>
-                <Link onClick={() => {
-                    clearActiveOtp();
-                    setStep("EMAIL");
-                }}>
-                    edit your email
-                </Link>
             </Flex>
         </>
     );

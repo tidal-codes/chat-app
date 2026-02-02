@@ -1,5 +1,6 @@
 import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 import { inputRecipe } from "./recipe/input.recipe";
+import { pinInputSlotRecipe } from "./recipe/pinInput.recipe";
 
 const config = defineConfig({
     theme: {
@@ -32,16 +33,33 @@ const config = defineConfig({
                         _dark: "{colors.gray.500}"
                     }
                 },
-                ring : {
-                    value : {
-                        _light : "{colors.brand.800}",
-                        _dark : "{colors.brand.500}"
+                ring: {
+                    value: {
+                        _light: "{colors.brand.800}",
+                        _dark: "{colors.brand.500}"
+                    }
+                },
+                status: {
+                    error: {
+                        value: {
+                            _light: "{colors.red.600}",
+                            _dark: "{colors.red.300}"
+                        }
+                    },
+                    success: {
+                        value: {
+                            _light: "{colors.green.600}",
+                            _dark: "{colors.green.300}"
+                        }
                     }
                 }
             }
         },
         recipes: {
             input: inputRecipe
+        },
+        slotRecipes: {
+            pinInput: pinInputSlotRecipe
         }
     },
 })

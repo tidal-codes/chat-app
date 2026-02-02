@@ -18,9 +18,9 @@ const EmailInputEndElement = ({ fieldError, fieldValue }: EmailInputEndElementPr
                     {
                         fieldValue.trim() && (
                             fieldError ?
-                                <CircleXChakra color="red.400" width={5} height={5} />
+                                <CircleXChakra color="status.error" width={5} height={5} />
                                 :
-                                <CircleCheckChakra color="green.400" width={5} height={5} />
+                                <CircleCheckChakra color="status.success" width={5} height={5} />
                         )
                     }
                 </Box>

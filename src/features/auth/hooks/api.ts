@@ -10,9 +10,18 @@ export function useSendOtp() {
     })
 }
 
-export function useVerifyOtp() {
+export function useVerifyOtp({ onSuccess, onError }: {
+    onSuccess: () => void,
+    onError: () => void
+}) {
     return useMutation({
-        mutationFn: ({ email, token }: { email: string, token: string }) => supabaseVerifyOTP({ email, token })
+        mutationFn: ({ email, token }: { email: string, token: string }) => test1(),
+        onSuccess: () => {
+            onSuccess()
+        },
+        onError: () => {
+            onError()
+        }
     })
 }
 
@@ -27,5 +36,12 @@ async function test() {
         setTimeout(() => {
             resolve("done")
         }, 600);
+    })
+}
+async function test1(){
+    return new Promise((resolve , reject) => {
+        setTimeout(() => {
+            resolve("done")
+        }, 500);
     })
 }

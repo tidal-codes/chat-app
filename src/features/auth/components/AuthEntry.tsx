@@ -1,40 +1,31 @@
-import LoginForm from './EmailForm';
-import { Flex, Separator, Text } from '@chakra-ui/react';
-import TestAccountLogin from './TestAccountLogin';
+import { Flex } from '@chakra-ui/react';
 import useStep from '../hooks/useStep';
 import { useEmailForm } from '../hooks/forms';
 import VerifyLoginCode from './VerifyLoginCode';
-import PinInput from '@/shared/ui/PinInput';
-import { useState } from 'react';
-import { string } from 'zod';
+import EmailSection from './EmailSection';
 
 const AuthEntry = () => {
-    const { register, errors, handleSubmit, getValues } = useEmailForm();
+    const { register, errors, handleSubmit, watch, getValues } = useEmailForm();
     const { step, setStep } = useStep();
-    const [number, setNumber] = useState<string>("");
+
     return (
         <Flex
             flexDir="column"
-            p="2"
+            p="4"
             maxW="md"
+            rounded="md"
             w="full"
             gap="3"
+            bgColor="#2f2f2f"
         >
             {step === "EMAIL" && (
-                <>
-                    <LoginForm
-                        setStep={setStep}
-                        register={register}
-                        handleSubmit={handleSubmit}
-                        errors={errors}
-                    />
-                    <Flex alignItems="center" justifyContent="center" gap="4">
-                        <Separator flex="1" borderColor="gray.600" />
-                        <Text>Or</Text>
-                        <Separator flex="1" borderColor="gray.600" />
-                    </Flex>
-                    <TestAccountLogin />
-                </>
+                <EmailSection
+                    setStep={setStep}
+                    register={register}
+                    handleSubmit={handleSubmit}
+                    watch={watch}
+                    errors={errors}
+                />
             )}
             {step === "OTP" && (
                 <VerifyLoginCode email={getValues().email} setStep={setStep} />

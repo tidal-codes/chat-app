@@ -19,17 +19,19 @@ export type OtpFormSchema = z.infer<typeof otpSchema>
 
 export function useEmailForm() {
     const email = getActiveOtpEmail() as string;
-    const { register, handleSubmit, getValues, formState: { isLoading, errors } } = useForm<EmailFormSchema>({
+    const { register, handleSubmit, getValues, watch, formState: { isLoading, errors } } = useForm<EmailFormSchema>({
         defaultValues: {
             email: email || ""
         },
-        resolver: zodResolver(emailSchema)
+        resolver: zodResolver(emailSchema),
+        mode: "onChange"
     })
 
     return {
         register,
         handleSubmit,
         getValues,
+        watch,
         isLoading,
         errors
     }

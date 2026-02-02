@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import { useVerifyOtp } from "./api";
 
-export default function useHandleVerifyCode(email : string) {
+export default function useHandleVerifyCode(email: string) {
     const [code, setCode] = useState<string>("");
     const { data, error, isPending, mutate } = useVerifyOtp();
-    console.log(data, error)
+    console.log(data)
+    console.log(error)
+
+    function getVerificationStatus(): "NO-CODE" | "WRONG-CODE" | "CORRECT-CODE" {
+        if (!data && !error) return "NO-CODE";
+        if (error) return "WRONG-CODE";
+        return "CORRECT-CODE";
+    }
 
     function getStringArray(): string[] {
         return Array.from({ length: 6 }).map((_, i) => {
@@ -27,6 +34,7 @@ export default function useHandleVerifyCode(email : string) {
         setCode,
         getStringArray,
         isPending,
-        verifyCode
+        verifyCode,
+        getVerificationStatus
     }
 }

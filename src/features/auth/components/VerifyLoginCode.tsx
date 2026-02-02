@@ -3,6 +3,7 @@ import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import type { Steps } from "../@types";
 import { clearActiveOtp } from "../utils/localStorageManager";
 import useHandleVerifyCode from "../hooks/useVerifyOtp";
+import useLoginEffect from "../hooks/useLoginEffect";
 
 interface VerifyLoginCodeProps {
     email: string
@@ -10,7 +11,9 @@ interface VerifyLoginCodeProps {
 }
 
 const VerifyLoginCode = ({ email, setStep }: VerifyLoginCodeProps) => {
-    const { getStringArray, setCode } = useHandleVerifyCode(email);
+    const { getVerificationStatus, getStringArray, setCode } = useHandleVerifyCode(email);
+    const status = getVerificationStatus();
+    useLoginEffect();
     return (
         <>
             <Box>

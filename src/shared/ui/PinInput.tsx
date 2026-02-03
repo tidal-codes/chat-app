@@ -35,7 +35,6 @@ const PinInput = ({ pins, value, disabled = false, status, setStatus, onValueCha
                     return <ChakraPinInput.Input
                         data-status={status}
                         borderColor={getInputBorderColor()}
-                        outline={status !== "IDLE" ? "none" : "1px solid"}
                         index={i}
                     />
                 })}

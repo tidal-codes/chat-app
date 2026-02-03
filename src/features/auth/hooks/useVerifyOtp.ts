@@ -1,20 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useVerifyOtp } from "./api";
 import type { OtpStatus } from "../@types";
+import { toast } from "@/shared/utils/toast";
 
 export default function useHandleVerifyCode(email: string) {
     const [code, setCode] = useState<string>("");
     const [status, setStatus] = useState<OtpStatus>("IDLE");
     const [isDisable, setDisable] = useState(false);
-    const { data, error, isPending, mutateAsync } = useVerifyOtp({ onSuccess, onError });
+    const toastIdRef = useRef<null | string>(null);
+    const { data, error, isPending, mutateAsync } = useVerifyOtp({ onSuccess, onError, onMutate });
     if (data) console.log(data);
     if (error) console.log(error)
 
     function onSuccess() {
-        setStatus("CURRECT");
+        toast.update(toastIdRef.current!, {
+            title: "loggedin successfully",
+            type: "success"
+        })
+        setStatus("CURRECT")
     }
     function onError() {
         setStatus("WRONG");
+    }
+    function onMutate() {
+        toastIdRef.current = toast.loading("checking your code")
     }
     function getStringArray(): string[] {
         return Array.from({ length: 6 }).map((_, i) => {

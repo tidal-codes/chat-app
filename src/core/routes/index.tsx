@@ -1,5 +1,6 @@
 import LoginPage from "@/features/auth/pages/LoginPage";
-import LoggedIn from "@/features/test/LoggedIn";
+import ChatPage from "@/features/chat/pages/ChatPage";
+import Chats from "@/features/chat/pages/Chats";
 import type { RouteObject } from "react-router";
 
 const routes: RouteObject[] = [
@@ -8,8 +9,14 @@ const routes: RouteObject[] = [
         element: <LoginPage />
     },
     {
-        path: "/loggedIn",
-        element: <LoggedIn />
+        path: "/c",
+        element: <Chats />,
+        children: [
+            {
+                path: ":chatId",
+                element: <ChatPage />
+            }
+        ]
     }
 ]
 

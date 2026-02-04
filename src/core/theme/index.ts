@@ -1,6 +1,8 @@
 import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 import { inputRecipe } from "./recipe/input.recipe";
 import { pinInputSlotRecipe } from "./recipe/pinInput.recipe";
+import { textareaRecipe } from "./recipe/textarea.recipe";
+import { buttonRecipe } from "./recipe/button.recipe";
 
 const config = defineConfig({
     theme: {
@@ -56,7 +58,9 @@ const config = defineConfig({
             }
         },
         recipes: {
-            input: inputRecipe
+            input: inputRecipe,
+            textarea : textareaRecipe,
+            button : buttonRecipe
         },
         slotRecipes: {
             pinInput: pinInputSlotRecipe

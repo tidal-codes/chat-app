@@ -1,7 +1,8 @@
-import { Box, Flex, Skeleton } from "@chakra-ui/react";
+import { Box, Flex, Link, Skeleton } from "@chakra-ui/react";
 import { useGetChats } from "../hooks/Queries";
 import useChatsStore from "../store/chats";
 import ChatItem from "./ChatItem";
+import { NavLink } from "react-router";
 
 
 const ChatsList = () => {
@@ -28,7 +29,13 @@ const ChatsList = () => {
                         })
                     ) : (
                         chatIds.map(chatId => (
-                            <ChatItem key={chatId} chatId={chatId} />
+                            <NavLink
+                                to={chatId}
+                            >
+                                {({isActive}) => {
+                                    return <ChatItem key={chatId} chatId={chatId} isActive={isActive}/>
+                                }}
+                            </NavLink>
                         ))
                     )
                 }

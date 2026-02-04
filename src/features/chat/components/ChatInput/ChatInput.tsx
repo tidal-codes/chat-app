@@ -40,6 +40,8 @@ const ChatInput = () => {
                         suppressContentEditableWarning
                         outline="none"
                         px="0"
+                        whiteSpace="pre-wrap"
+                        wordBreak="break-word"
                     />
                 </Box>
 

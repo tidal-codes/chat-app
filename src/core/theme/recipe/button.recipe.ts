@@ -113,7 +113,7 @@ export const buttonRecipe = defineRecipe({
             icon_lg: {
                 h: "auto",
                 minW: "0",
-                p: "3",
+                p: "2",
                 _icon: {
                     width: "6",
                     height: "6"

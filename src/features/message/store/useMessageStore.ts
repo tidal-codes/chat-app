@@ -14,7 +14,32 @@ const useMessageStore = create<MessageStore>((set) => ({
         })
 
         return set({ messageIds, messagesById })
-    }
+    },
+    addMessage: (message) => set((state) => {
+        if (state.messagesById[message.id]) {
+            return state;
+        }
+
+        return {
+            messageIds: [...state.messageIds, message.id],
+            messagesById: {
+                ...state.messagesById,
+                [message.id]: message,
+            },
+        };
+    }),
+    removeMessage: (messageId) => set((state) => {
+        if (!state.messagesById[messageId]) {
+            return state;
+        }
+
+        const { [messageId]: _removed, ...restMessages } = state.messagesById;
+
+        return {
+            messageIds: state.messageIds.filter((id) => id !== messageId),
+            messagesById: restMessages,
+        };
+    })
 }))
 
 export default useMessageStore

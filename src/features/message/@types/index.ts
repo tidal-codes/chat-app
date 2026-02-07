@@ -10,7 +10,9 @@ export interface Message {
 export interface MessageStore {
     messageIds: string[],
     messagesById: Record<string, Message>,
-    setMessages: (messages: Message[]) => void
+    setMessages: (messages: Message[]) => void,
+    addMessage: (message: Message) => void
+    removeMessage: (messageId: string) => void
 }
 
 export interface SendMessageParams {

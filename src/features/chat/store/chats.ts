@@ -17,6 +17,17 @@ const useChatsStore = create<ChatsStore>((set) => ({
             return { chats: chatsRecord, chatIds };
         }
     }),
+    updateChat: (chatId, newChat) => set((state) => {
+        const chat = state.chats[chatId];
+        if (!chat) return state;
+
+        return {
+            chats: {
+                ...state.chats,
+                [chatId]: { ...chat, ...newChat },
+            },
+        };
+    })
 }));
 
 export default useChatsStore;

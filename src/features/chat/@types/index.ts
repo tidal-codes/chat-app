@@ -18,4 +18,5 @@ export interface ChatsStore {
     chats: Record<string, ChatPreview>;
     chatIds: string[];
     setChats: (chats: ChatPreview[]) => void;
+    updateChat: (chatId: string, newChat: Partial<ChatPreview>) => void;
 }

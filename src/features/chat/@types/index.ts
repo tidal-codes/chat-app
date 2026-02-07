@@ -1,3 +1,6 @@
+import type { Message } from "@/features/message/@types";
+import type { User } from "@/shared/@types";
+
 export type ChatUser = {
     id: string;
     username: string;
@@ -5,19 +8,10 @@ export type ChatUser = {
     avatar: string;
     isOnline: boolean;
 };
-
-export type LastMessage = {
-    id: string;
-    text: string;
-    sentByMe: boolean;
-    createdAt: string; 
-};
-
 export type ChatPreview = {
-    chatId: string;
-    user: ChatUser;
-    lastMessage: LastMessage;
-    unreadCount: number;
+    conversation_id: string;
+    last_message: Message;
+    contact: User
 };
 
 export interface ChatsStore {

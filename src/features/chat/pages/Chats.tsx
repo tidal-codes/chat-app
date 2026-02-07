@@ -1,8 +1,20 @@
 import { Box, Flex } from "@chakra-ui/react";
 import ChatsView from "../components/ChatsView";
 import { Outlet } from "react-router";
+import { useEffect } from "react";
+import { listenToMessages } from "@/features/message/api";
+import supabase from "@/core/supabase";
 
 const Chats = () => {
+
+    useEffect(() => {
+        const channle = listenToMessages((payload) => console.log(payload));
+
+        return () => {
+            supabase.removeChannel(channle);
+        }
+    }, [])
+
     return (
         <Box w="full" h="100vh" bgColor="#242424">
             <Flex alignItems='center' h="full" w="full">

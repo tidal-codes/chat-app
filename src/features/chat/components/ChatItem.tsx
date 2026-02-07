@@ -6,7 +6,7 @@ import Avatar from "@/shared/ui/Avatar";
 const ChatItem = ({ chatId, isActive }: { chatId: string, isActive: boolean }) => {
     const chats = useChatsStore(state => state.chats);
     const chat = chats[chatId];
-    const createdAt = new Date(chat.lastMessage.createdAt);
+    const createdAt = new Date(chat.last_message.created_at);
 
     return (
         <Box
@@ -32,7 +32,7 @@ const ChatItem = ({ chatId, isActive }: { chatId: string, isActive: boolean }) =
                 >
                     <Flex w="full" alignItems="center" justifyContent="space-between">
                         <Text>
-                            {chat.user.fullName}
+                            {chat.contact.first_name} {chat.contact.last_name}
                         </Text>
                         <Text
                             color="fg.muted"
@@ -46,7 +46,7 @@ const ChatItem = ({ chatId, isActive }: { chatId: string, isActive: boolean }) =
                             color="fg.muted"
                             fontSize="sm"
                         >
-                            {chat.lastMessage.text}
+                            {chat.last_message.text}
                         </Text>
                     </Flex>
                 </Flex>

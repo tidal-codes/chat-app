@@ -1,9 +1,10 @@
 import { Box, VStack } from "@chakra-ui/react";
 import useMessageStore from "../store/useMessageStore";
 import TextMessage from "./TextMessage";
+import type { User } from "@supabase/supabase-js";
 
 
-const MessagesList = () => {
+const MessagesList = ({ user }: { user: User }) => {
     const messageIds = useMessageStore(state => state.messageIds);
     const messagesById = useMessageStore(state => state.messagesById);
 
@@ -11,14 +12,15 @@ const MessagesList = () => {
         <Box
             w="full"
             h="full"
-            // overflowY="auto"
+        // overflowY="auto"
         >
             <VStack
-            p="3"
+                p="3"
+                pb="100px"
 
             >
                 {messageIds.map(id => {
-                    const isMe = messagesById[id].sender_id === 10
+                    const isMe = messagesById[id].sender_id === user.id
                     return <TextMessage key={id} messageId={id} isMe={isMe} />
                 })}
             </VStack>

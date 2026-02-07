@@ -1,12 +1,12 @@
 import { Box, Flex, Link, Skeleton } from "@chakra-ui/react";
-import { useGetChats } from "../hooks/Queries";
+import { useGetConversations } from "../hooks/Queries";
 import useChatsStore from "../store/chats";
 import ChatItem from "./ChatItem";
 import { NavLink } from "react-router";
 
 
 const ChatsList = () => {
-    const { isLoading } = useGetChats();
+    const { isLoading } = useGetConversations();
     const chatIds = useChatsStore(state => state.chatIds);
 
     return (

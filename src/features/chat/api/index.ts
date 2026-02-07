@@ -1,3 +1,5 @@
+import supabase from "@/core/supabase";
+
 export async function getUserChats(): Promise<any> {
     // Implementation to fetch user chats from the backend
     return new Promise((resolve) => {
@@ -5,6 +7,13 @@ export async function getUserChats(): Promise<any> {
             resolve(JSON.parse(JSON.stringify(data)));
         }, 2000);
     });
+}
+
+export async function getUserConversations() {
+    const { data, error } = await supabase.rpc("get_my_conversations" , {});
+
+    if (error) throw error
+    return data
 }
 
 

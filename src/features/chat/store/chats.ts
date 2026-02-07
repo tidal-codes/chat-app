@@ -6,13 +6,13 @@ import { create } from "zustand";
 const useChatsStore = create<ChatsStore>((set) => ({
     chats: {},
     chatIds: [],
-    setChats: (chats) => set(() => {
+    setChats: (ChatPreviews) => set(() => {
         {
             const chatsRecord: Record<string, ChatsStore["chats"][string]> = {};
             const chatIds: string[] = [];
-            chats.forEach(chat => {
-                chatsRecord[chat.chatId] = chat;
-                chatIds.push(chat.chatId);
+            ChatPreviews.forEach(preview => {
+                chatsRecord[preview.conversation_id] = preview;
+                chatIds.push(preview.conversation_id);
             });
             return { chats: chatsRecord, chatIds };
         }

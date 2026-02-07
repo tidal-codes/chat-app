@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useGetChats } from "./Queries";
+import { useGetConversations } from "./Queries";
 import useChatsStore from "../store/chats";
 
 export default function useInitialChats() {
-    const { data } = useGetChats();
+    const { data } = useGetConversations();
     const setChats = useChatsStore(state => state.setChats);
 
     useEffect(() => {

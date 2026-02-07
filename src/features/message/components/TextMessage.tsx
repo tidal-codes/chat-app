@@ -26,7 +26,7 @@ const TextMessage = ({ isMe, messageId }: TextMessageProps) => {
                     rounded="md"
                 >
                     <Text>
-                        {message.content}
+                        {message.text}
                     </Text>
                 </Box>
             </Flex>

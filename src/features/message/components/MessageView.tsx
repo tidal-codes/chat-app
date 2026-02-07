@@ -4,10 +4,11 @@ import MessagesList from "./MessagesList";
 import useAuth from "@/features/auth/hooks/useAuth";
 
 interface MessageViewProps {
-    chatId: string
+    chatId: string;
+    scrollToBottom: () => void
 }
 
-const MessageView = ({ chatId }: MessageViewProps) => {
+const MessageView = ({ chatId, scrollToBottom }: MessageViewProps) => {
     useSetMessages(chatId);
     const auth = useAuth();
 
@@ -22,12 +23,8 @@ const MessageView = ({ chatId }: MessageViewProps) => {
         )
     }
     return (
-        <Box
-            w="full"
-            h="full"
-            overflowY="auto"
-            bgColor="red.300">
-            <MessagesList user={auth.user} />
+        <Box>
+            <MessagesList user={auth.user} scrollToBottom={scrollToBottom} />
         </Box>
     );
 }

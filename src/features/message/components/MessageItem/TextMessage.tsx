@@ -1,5 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import useMessageStore from "../store/useMessageStore";
+import useMessageStore from "../../store/useMessageStore";
+import MessageStatus from "./MessageStatus";
+import Options from "./Options";
 
 
 interface TextMessageProps {
@@ -11,26 +13,34 @@ const TextMessage = ({ isMe, messageId }: TextMessageProps) => {
     const messagesById = useMessageStore(state => state.messagesById);
     const message = messagesById[messageId];
     return (
-        <Box
+        <Flex
             w="full"
         >
             <Flex
                 w="full"
+                gap="1"
                 justify={isMe ? "flex-end" : "flex-start"}
             >
-                <Box
+                <Flex
                     w="fit-content"
                     h="fit"
-                    p="3"
+                    flexDir="column"
+                    gap="1"
+                    p="2"
                     bgColor={isMe ? "brand.500" : "#242424"}
                     rounded="md"
                 >
-                    <Text>
+                    <Text fontSize="sm">
                         {message.text}
                     </Text>
-                </Box>
+                    <MessageStatus
+                        sentTime={message.created_at}
+                        status={message.status}
+                        isMe={isMe}
+                    />
+                </Flex>
             </Flex>
-        </Box>
+        </Flex>
     );
 }
 

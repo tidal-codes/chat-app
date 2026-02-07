@@ -39,6 +39,17 @@ const useMessageStore = create<MessageStore>((set) => ({
             messageIds: state.messageIds.filter((id) => id !== messageId),
             messagesById: restMessages,
         };
+    }),
+    updateMessage: (messageId, newMessage) => set((state) => {
+        const message = state.messagesById[messageId];
+        if (!message) return state;
+
+        return {
+            messagesById: {
+                ...state.messagesById,
+                [messageId]: { ...message, ...newMessage },
+            },
+        };
     })
 }))
 

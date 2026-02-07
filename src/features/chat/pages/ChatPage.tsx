@@ -1,46 +1,59 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, VStack } from '@chakra-ui/react';
 import ChatInput from '../components/ChatInput';
 import ChatPageHeader from '../components/ChatPageHeader';
 import MessageView from '@/features/message/components/MessageView';
 import { useParams } from 'react-router';
+import { useEffect, useRef } from 'react';
 
 const ChatPage = () => {
     const { chatId } = useParams();
-    if (!chatId) throw new Error("no chat id provided")
+    if (!chatId) throw new Error("no chat id provided");
+    const scrollElementRef = useRef<null | HTMLDivElement>(null);
+
+    useEffect(() => {
+        const el = scrollElementRef.current;
+        if (!el) return;
+
+        el.scrollTo({
+            top: el.scrollHeight,
+            behavior: "auto"
+        });
+    }, [chatId])
+
+    function scrollToBottom() {
+        const el = scrollElementRef.current;
+        if (!el) return;
+
+        console.log("IS GOING TO GET SCROLLED")
+        el.scrollTo({
+            top: el.scrollHeight,
+            behavior: "smooth"
+        });
+    }
+
     return (
-        <Box
-            w="full"
-            h="full"
-            position="relative"
-        >
-            <Box
-                position="absolute"
-                bottom="5"
-                left="5"
-                right="5"
-            >
-                <ChatInput />
+        <Flex w="full" h="full" flexDir="column">
+            <Box>
+                <ChatPageHeader />
             </Box>
-            <Flex
-                flexDir="column"
-                alignItems="center"
-                h="full"
-            >
+            <Flex flex="1" minH="0" flexDir="column">
                 <Box
-                    w="full"
-                    h="fit-content"
-                >
-                    <ChatPageHeader />
-                </Box>
-                <Box
+                    ref={scrollElementRef}
                     flex="1"
                     minH="0"
-                    w="full"
+                    overflowY="auto"
+                    px="4"
                 >
-                    <MessageView chatId={chatId} />
+                    <Box px="40">
+                        <MessageView chatId={chatId} scrollToBottom={scrollToBottom} />
+                    </Box>
+                </Box>
+                <Box w="full" pb="3" pt="1" px="40">
+                    <ChatInput />
                 </Box>
             </Flex>
-        </Box>
+        </Flex>
+
     );
 }
 

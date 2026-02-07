@@ -1,9 +1,12 @@
 import useAuth from '@/features/auth/hooks/useAuth';
 import { useSendMessage } from '@/features/message/hooks/Queries';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
-import { Paperclip, SendHorizontal, Smile } from 'lucide-react';
+import { Box, Flex } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router';
+import EmojisButton from './EmojisButton';
+import MessageInput from './MessageInput';
+import SendButton from './SendButton';
+import MediaButton from './MediaButton';
 
 const ChatInput = () => {
     const [text, setText] = useState("");
@@ -18,6 +21,8 @@ const ChatInput = () => {
     };
 
     function sendMessage() {
+        if(!inputRef.current) return;
+        inputRef.current.innerText = "";
         mutate({
             conversation_id: chatId!,
             sender_id: auth.user!.id,
@@ -37,46 +42,18 @@ const ChatInput = () => {
                 p="2"
                 gap="2"
             >
-                <Button
-                    variant="ghost"
-                    size="icon_lg"
-                    rounded="full"
+                <EmojisButton />
+                <Box
+                    flex="1"
                 >
-                    <Smile />
-                </Button>
-
-                <Box h="full" flex="1">
-                    <Text
-                        ref={inputRef}
-                        contentEditable
-                        dir="auto"
-                        onInput={handleInput}
-                        suppressContentEditableWarning
-                        outline="none"
-                        px="0"
-                        whiteSpace="pre-wrap"
-                        wordBreak="break-word"
+                    <MessageInput
+                        inputRef={inputRef}
+                        handleInput={handleInput}
                     />
                 </Box>
-
                 <Flex gap="2">
-                    <Button
-                        variant="ghost"
-                        size="icon_lg"
-                        rounded="full"
-                    >
-                        <Paperclip />
-                    </Button>
-                    <Button
-                        variant="ghost"
-                        size="icon_lg"
-                        rounded="full"
-                        bgColor="brand.500"
-                        color="white"
-                        onClick={() => sendMessage()}
-                    >
-                        <SendHorizontal />
-                    </Button>
+                    <MediaButton />
+                    <SendButton show={Boolean(text.trim())} sendMessage={sendMessage} />
                 </Flex>
             </Flex>
         </Box>

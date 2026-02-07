@@ -5,12 +5,16 @@ import { Outlet } from "react-router";
 const Chats = () => {
 
     return (
-        <Box w="full" h="100vh" bgColor="#242424">
+        <Box w="full" h="100vh" bgColor="#242424" overflow="hidden">
             <Flex alignItems='center' h="full" w="full">
                 <Box flex="2" h="full">
                     <ChatsView />
                 </Box>
-                <Box flex="4" h="full">
+                <Box
+                    flex="4"
+                    h="full"
+                    bgColor="red.300"
+                >
                     <Outlet />
                 </Box>
             </Flex>

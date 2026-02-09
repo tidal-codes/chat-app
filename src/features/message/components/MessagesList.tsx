@@ -3,6 +3,7 @@ import useMessageStore from "../store/useMessageStore";
 import TextMessage from "./MessageItem/TextMessage";
 import type { User } from "@supabase/supabase-js";
 import { useEffect } from "react";
+import { shouldHaveTale } from "../utils";
 
 
 const MessagesList = ({ user, scrollToBottom }: { user: User, scrollToBottom: () => void }) => {
@@ -27,10 +28,28 @@ const MessagesList = ({ user, scrollToBottom }: { user: User, scrollToBottom: ()
         <Box>
             <VStack
                 p="3"
+                gap="0"
             >
                 {messageIds.map((id, i) => {
                     const isMe = messagesById[id].sender_id === user.id
-                    return <TextMessage key={id} messageId={id} isMe={isMe} />
+                    const tale = shouldHaveTale({
+                        previousMsg: messagesById[messageIds[i - 1]],
+                        nextMsg: messagesById[messageIds[i + 1]],
+                        currentMsg: messagesById[id]
+                    })
+                    return (
+                        <Box
+                            w="full"
+                            my="2"
+                        >
+                            <TextMessage
+                                key={id}
+                                messageId={id}
+                                isMe={isMe}
+                                tale={tale}
+                            />
+                        </Box>
+                    )
                 })}
             </VStack>
         </Box>

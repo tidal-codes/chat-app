@@ -13,8 +13,7 @@ const ChatViewHeader = () => {
                 <Box>
                     <Button
                         variant="ghost"
-                        size="lg"
-                        p='2'
+                        size="icon_lg"
                         rounded="full"
                     >
                         <Menu />

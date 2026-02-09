@@ -2,12 +2,9 @@ import { Box, Flex } from '@chakra-ui/react';
 import ChatViewHeader from './ChatViewHeader';
 import ChatsList from './ChatsList';
 import useInitialChats from '../hooks/useInitialChats';
-import { useGetConversations } from '../hooks/Queries';
 
 const ChatsView = () => {
     useInitialChats();
-    const { data, error } = useGetConversations();
-    console.log("CONVERSATIONS" , data);
     return (
         <Box w="full" h="full" bgColor="#2f2f2f">
             <Flex

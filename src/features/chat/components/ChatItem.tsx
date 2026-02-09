@@ -11,9 +11,8 @@ const ChatItem = ({ chatId, isActive }: { chatId: string, isActive: boolean }) =
     return (
         <Box
             w="full"
-            bgColor={isActive ? "brand.200" : "#2f2f2f"}
-            px="3"
-            py="2"
+            bgColor={isActive ? "brand.300" : "#2f2f2f"}
+            p="2"
             rounded="md"
         >
             <Flex
@@ -23,19 +22,24 @@ const ChatItem = ({ chatId, isActive }: { chatId: string, isActive: boolean }) =
             >
                 <Flex gap="2">
                     <Box>
-                        <Avatar size="xl" />
+                        <Avatar w="54px" h="54px" />
                     </Box>
                 </Flex>
                 <Flex
                     flex="1"
                     flexDir="column"
+                    minW="0"
                 >
                     <Flex w="full" alignItems="center" justifyContent="space-between">
-                        <Text>
+                        <Text
+                            truncate={true}
+                            fontSize="md"
+                            fontWeight="semibold"
+                        >
                             {chat.contact.first_name} {chat.contact.last_name}
                         </Text>
                         <Text
-                            color="fg.muted"
+                            color={isActive ? "white" : "fg.muted"}
                             fontSize="sm"
                         >
                             {createdAt.getHours()}:{createdAt.getMinutes()}
@@ -43,8 +47,9 @@ const ChatItem = ({ chatId, isActive }: { chatId: string, isActive: boolean }) =
                     </Flex>
                     <Flex>
                         <Text
-                            color="fg.muted"
+                            color={isActive ? "white" : "fg.muted"}
                             fontSize="sm"
+                            truncate={true}
                         >
                             {chat.last_message.text}
                         </Text>

@@ -21,7 +21,7 @@ const ChatInput = () => {
     };
 
     function sendMessage() {
-        if(!inputRef.current) return;
+        if (!inputRef.current) return;
         inputRef.current.innerText = "";
         mutate({
             conversation_id: chatId!,
@@ -33,25 +33,22 @@ const ChatInput = () => {
     return (
         <Box
             w="full"
-            bgColor="#2f2f2f"
-            rounded="full"
         >
             <Flex
                 w="full"
                 alignItems="center"
                 p="2"
                 gap="2"
+                bgColor="#2d2d2d"
             >
                 <EmojisButton />
-                <Box
-                    flex="1"
-                >
+                <Box flex="1">
                     <MessageInput
                         inputRef={inputRef}
                         handleInput={handleInput}
                     />
                 </Box>
-                <Flex gap="2">
+                <Flex>
                     <MediaButton />
                     <SendButton show={Boolean(text.trim())} sendMessage={sendMessage} />
                 </Flex>

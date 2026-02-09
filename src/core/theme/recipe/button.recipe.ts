@@ -125,7 +125,8 @@ export const buttonRecipe = defineRecipe({
                 p: "2",
                 _icon: {
                     width: "6",
-                    height: "6"
+                    height: "6",
+                    color : "fg.muted"
                 }
 
 

@@ -6,8 +6,16 @@ const Chats = () => {
 
     return (
         <Box w="full" h="100vh" bgColor="#242424" overflow="hidden">
-            <Flex alignItems='center' h="full" w="full">
-                <Box flex="2" h="full">
+            <Flex
+                alignItems='center'
+                h="full"
+                w="full"
+            >
+                <Box
+                    minW="0"
+                    flex="2"
+                    h="full"
+                >
                     <ChatsView />
                 </Box>
                 <Box
